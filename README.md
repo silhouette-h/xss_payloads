@@ -1,5 +1,5 @@
 These files are weaponized XSS payloads rather than just Proof of Concept payloads.
-While Proof of Concept payloads do harmless pop-up boxes like 'alert(1)' proves the XSS flaw exists, weaponized payloads
+While Proof of Concept payloads do harmless pop-up boxes like 'alert(1)' proves the XSS flaw exists, these weaponized payloads
 are malicious javacript code snippets that are written inside a txt file that are designed to do real damage to the victim's browser
 like stealing data, hijacks user sessions, logs keystrokes, or forces the victim's browser to execute unauthorized actions.
 
