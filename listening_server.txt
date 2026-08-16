@@ -1,0 +1,7 @@
+steps on how to start a listerning server
+
+1. start xampp on your first tab
+2. on a second tab, connect your web server to a cloudflared tunnel : cloudflared tunnel --url http://localhost/vulnmart/index.php
+3. on a third tab, start the listener and connect it to a cloudflared tunnel : python3 -m http.server 8000 & cloudflared tunnel --url http://localhost:8000
+
+all of the captured request will be received at the cloudflared tunnel listener tab.
