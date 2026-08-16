@@ -9,3 +9,4 @@ Here are what each files do:
 3. mobilekeylogger.txt - also logs every keystroke when the victim types in a mobile device. but it doesn't log the keys shift, space, caps lock, etc.
 4. mobilekeylogger2.txt - same as mobilekeylogger.txt. but it logs every key the victim types in his/her mobile device including the keys shift, space, caps lock, etc.
 5. mobilekeylogger3.txt - a complete keylogger script that logs every keystroke the victim types whether the victim is on desktop or a mobile device.
+6. listening_server.txt - steps on how to activate a listening server that acts as an attacker-controlled receiver that logs incoming HTTP requests, captures stolen data like session cookies or keystrokes.
