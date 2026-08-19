@@ -1,7 +1,8 @@
 steps on how to start a listerning server
 
 1. start xampp on your first tab
-2. on the second tab, start the listener and connect it to a cloudflared tunnel : python3 -m http.server 8000 & cloudflared tunnel --url http://localhost:8000
+2. on the second tab, start the listener and connect it to a cloudflared tunnel : python3 -m http.server <PORT> & cloudflared tunnel --url http://localhost:<PORT>
+You can also use 'nc -lvnp <PORT>' instead of 'python3 -m http.server <PORT>'
 
 all of the captured request will be received at the cloudflared tunnel listener tab.
 
